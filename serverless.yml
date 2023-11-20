@@ -1,0 +1,18 @@
+service: sls-notification-service
+
+plugins:
+  - serverless-bundle
+  - serverless-pseudo-parameters
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  memorySize: 512
+  stage: ${opt:stage, 'dev'}
+  region: ap-south-1
+  iamRoleStatements:
+    - ${file(iam/SendMailIAM.yml):SendMailIAM}
+
+functions:
+  sendMail:
+    handler: src/handlers/sendMail.handler
