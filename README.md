@@ -1,6 +1,6 @@
 # Codingly.io: Base Serverless Framework Template
 
-https://codingly.io
+https://codingly.ioToAddresses
 
 ## What's included
 * Folder structure used consistently across our projects.
@@ -20,9 +20,25 @@ sls invoke -f sendMail -d '{}' -l
 sls invoke local -f sendMail -d '{}'
 
 sls invoke -f sendMail -d '{
-  "Source" : "a*******@xyz.com",
-  "Destination": {
+  "subject":"Test Mail using AWS SQS",
+  "body":"Test Body", 
+  "source" : "a*******@xyz.com",
+  "recipient": {
     "ToAddresses": ["a*****@xyz.com"]
   }
 }' -l
 
+
+
+## in console log check 
+ sls logs -f sendMail -t
+
+## in Queue just click on send message and pass below json object on there
+{
+  "subject":"Test Mail using AWS SQS",
+  "body":"Test Body",  
+  "source" : "avinash@xyz.in",
+  "recipient": {
+    "ToAddresses": ["avinash@xyz.in"]
+  }
+}
