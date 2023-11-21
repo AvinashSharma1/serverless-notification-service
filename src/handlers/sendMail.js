@@ -8,19 +8,24 @@ async function sendMail(event, context) {
   console.log("From our variable start ===");
   console.log(source);
   console.log(toAddresses);
+  const record = event.Records[0];
+  console.log('record processing',record);
+  const email = JSON.parse(record.body);
+  const {subject, body, recipient} = email;
+
    const params = {
     Source : source,
     Destination: {
-      ToAddresses: toAddresses,
+      ToAddresses: [recipient],
     },
     Message: {
       Body: {
         Text: {
-          Data: 'Hello Test Mail SES!!'
+          Data: body
         }
       },
       Subject: {
-        Data: 'Test mail SES!'
+        Data: subject
       }
     }
   };
